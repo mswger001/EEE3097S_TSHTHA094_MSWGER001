@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1662940712 source:/home/thabelo/Documents/EEE3097S/EEE3097S/main.c
+	"main.h"
+	<stdio.h>
+	<string.h>
+	<stdint.h>
+	"aes.h"
+
+1662922040 source:/home/thabelo/Documents/EEE3097S/EEE3097S/aes.c
+	<string.h>
+	"aes.h"
+
+1662938647 /home/thabelo/Documents/EEE3097S/EEE3097S/aes.h
+	<stdint.h>
+	<stddef.h>
+
+1662919126 /home/thabelo/Documents/EEE3097S/EEE3097S/main.h
+
