@@ -22,6 +22,8 @@
 #include <string.h>
 #include <stdint.h>
 #include "aes.h"
+#include <fcntl.h>
+#include <unistd.h>
 // Enable ECB, CTR and CBC mode. Note this can be done before including aes.h or at compile-time.
 // E.g. with GCC by using the -D flag: gcc -c aes.c -DCBC=0 -DCTR=1 -DECB=1
 
@@ -42,7 +44,7 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define ECB 1
-
+#define SIZE 1024
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -86,22 +88,45 @@ static void test_encrypt_ecb_verbose(void)
     uint8_t i;
 
     // 128bit key
-    uint8_t key[32] =        { (uint8_t) 0x2b, (uint8_t) 0x7e, (uint8_t) 0x15, (uint8_t) 0x16, (uint8_t) 0x28, (uint8_t) 0xae, (uint8_t) 0xd2, (uint8_t) 0xa6, (uint8_t) 0xab, (uint8_t) 0xf7, (uint8_t) 0x15, (uint8_t) 0x88, (uint8_t) 0x09, (uint8_t) 0xcf, (uint8_t) 0x4f, (uint8_t) 0x3c , (uint8_t) 0x7e, (uint8_t) 0x15, (uint8_t) 0x16, (uint8_t) 0x28, (uint8_t) 0xae, (uint8_t) 0x7e, (uint8_t) 0x15, (uint8_t) 0x16, (uint8_t) 0x28, (uint8_t) 0xae, (uint8_t) 0x7e, (uint8_t) 0x15, (uint8_t) 0x16, (uint8_t) 0x28, (uint8_t) 0xae};
+    uint8_t key[32] =        { (uint8_t) 0x7e, (uint8_t) 0x15,(uint8_t) 0x2b, (uint8_t) 0x16, (uint8_t) 0x28, (uint8_t) 0xae, (uint8_t) 0xd2, (uint8_t) 0xa6, (uint8_t) 0xab, (uint8_t) 0xf7, (uint8_t) 0x15, (uint8_t) 0x88, (uint8_t) 0x09, (uint8_t) 0xcf, (uint8_t) 0x4f, (uint8_t) 0x3c , (uint8_t) 0x7e, (uint8_t) 0x15, (uint8_t) 0x16, (uint8_t) 0x28, (uint8_t) 0xae, (uint8_t) 0x7e, (uint8_t) 0x15, (uint8_t) 0x16, (uint8_t) 0x28, (uint8_t) 0xae, (uint8_t) 0x7e, (uint8_t) 0x15, (uint8_t) 0x16, (uint8_t) 0x28, (uint8_t) 0xae};
     // 512bit text
-    uint8_t plain_text[256] = { (uint8_t) 0xbe, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x93, (uint8_t) 0x17, (uint8_t) 0x2a,
+   uint8_t plain_text[256] = { (uint8_t) 0xbe, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x00, (uint8_t) 0x93, (uint8_t) 0x17, (uint8_t) 0x2a,
                                (uint8_t) 0xae, (uint8_t) 0x2d, (uint8_t) 0x8a, (uint8_t) 0x57, (uint8_t) 0x1e, (uint8_t) 0x03, (uint8_t) 0xac, (uint8_t) 0x9c, (uint8_t) 0x9e, (uint8_t) 0xb7, (uint8_t) 0x6f, (uint8_t) 0xac, (uint8_t) 0x45, (uint8_t) 0xaf, (uint8_t) 0x8e, (uint8_t) 0x51,
                                (uint8_t) 0x30, (uint8_t) 0xc8, (uint8_t) 0x1c, (uint8_t) 0x46, (uint8_t) 0xa3, (uint8_t) 0x5c, (uint8_t) 0xe4, (uint8_t) 0x11, (uint8_t) 0xe5, (uint8_t) 0xfb, (uint8_t) 0xc1, (uint8_t) 0x19, (uint8_t) 0x1a, (uint8_t) 0x0a, (uint8_t) 0x52, (uint8_t) 0xef,
                                (uint8_t) 0xf6, (uint8_t) 0x9f, (uint8_t) 0x24, (uint8_t) 0x45, (uint8_t) 0xdf, (uint8_t) 0x4f, (uint8_t) 0x9b, (uint8_t) 0x17, (uint8_t) 0xad, (uint8_t) 0x2b, (uint8_t) 0x41, (uint8_t) 0x7b, (uint8_t) 0xe6, (uint8_t) 0x6c, (uint8_t) 0x37, (uint8_t) 0x10 };
 
     // print text to encrypt, key and IV
-    sprintf(plain_text, "1");
+    //sprintf(plain_text, "Hello world");
+    const char filename[] = "tout";
+    int fdes,x;
+    char buffer[SIZE];
+    size_t r;
+
+    /* open the file for unformatted input */
+    fdes = open(filename,O_RDONLY);
+    if( fdes==-1 )
+    {
+        fprintf(stderr,"Unable to open %s\n",filename);
+    }
+
+    /* read raw data */
+    r = read( fdes, buffer, SIZE );
+
+    /* output the buffer */
+    /* not null character terminated! */
+    //for( x=0; x<r; x++ )
+        //putchar( buffer[x] );
+
+    /* close the file */
+    close(fdes);
+
     printf("ECB encrypt verbose:\n\n");
     printf("plain text:\n");
     printf("%s\n\n",plain_text);
-    for (i = (uint8_t) 0; i < (uint8_t) 4; ++i)
+    for (i = (uint8_t) 0; i < 16; ++i)
     {
-        phex(plain_text + i * (uint8_t) 16);
-    }
+        phex(buffer + i * (uint8_t) 16);
+   }
     printf("\n");
 
     printf("key:\n");
@@ -113,23 +138,23 @@ static void test_encrypt_ecb_verbose(void)
 
     struct AES_ctx ctx;
     AES_init_ctx(&ctx, key);
-    for (i = 0; i < 4; ++i)
+    for (i = 0; i < 16; ++i)
     {
-      AES_ECB_encrypt(&ctx, plain_text + (i * 16));
-      phex(plain_text + (i * 16));
+      AES_ECB_encrypt(&ctx, buffer + (i * 16));
+      phex(buffer+ (i * 16));
     }
     printf("\n");
-    printf("Encrypted text:");
+    printf("Encrypted text:\n");
     printf("\n%s\n",plain_text);
 
     printf("Decrypt:\n");
 
     struct AES_ctx stx;
     AES_init_ctx(&stx, key);
-    for (i = 0; i < 4; ++i)
+    for (i = 0; i < 16; ++i)
     {
-      AES_ECB_decrypt(&stx, plain_text + (i * 16));
-      phex(plain_text + (i * 16));
+      AES_ECB_decrypt(&stx, buffer + (i * 16));
+      phex(buffer + (i * 16));
     }
     printf("\n");
     printf("%s\n",plain_text);

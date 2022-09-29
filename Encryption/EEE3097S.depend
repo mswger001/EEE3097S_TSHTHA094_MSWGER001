@@ -16,3 +16,22 @@
 
 1662919126 /home/thabelo/Documents/EEE3097S/EEE3097S/main.h
 
+1662922040 source:/home/thabelo/Documents/EEE3097S/EEE3097S_TSHTHA094_MSWGER001/Encryption/aes.c
+	<string.h>
+	"aes.h"
+
+1662938647 /home/thabelo/Documents/EEE3097S/EEE3097S_TSHTHA094_MSWGER001/Encryption/aes.h
+	<stdint.h>
+	<stddef.h>
+
+1662981461 source:/home/thabelo/Documents/EEE3097S/EEE3097S_TSHTHA094_MSWGER001/Encryption/main.c
+	"main.h"
+	<stdio.h>
+	<string.h>
+	<stdint.h>
+	"aes.h"
+	<fcntl.h>
+	<unistd.h>
+
+1662919126 /home/thabelo/Documents/EEE3097S/EEE3097S_TSHTHA094_MSWGER001/Encryption/main.h
+
