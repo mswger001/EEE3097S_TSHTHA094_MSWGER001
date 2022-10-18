@@ -19,47 +19,6 @@ To get a local copy up and running follow these simple example steps.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-## Required Hardware
-To get started working on this project, the following hardware is required:
-
-| Hardware     | Quantity |
-| :----------- | :-----------:|
-| ICM-20649 Module | x 1|
-| STM32f051 Discovery Board   | x 2|
-| FTDI Adaptor   | x 1    |
-| Micro-USB   | x 1 |
-| Mini-USB   | x 1  |
-| Male-to-Female Jumpers   | x 10  |
-| Male-to-Male Jumpers   | x 10    |
-| Computer to Code   | x 1    |
-
-
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-## Required Software
-As well as the above mentioned hardware, the following software/tools are needed:
-
-| Hardware     | Quantity |
-| :----------- | :-----------:|
-|python|-|
-| STM32 Cube IDE (Or equivalent such as VS Code) | x 1|
-| Serial Port Monitor (Putty on Windows) | x 1|
-
-
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-## Connecting the Hardware
-
-
-The pins on the FTDI adaptor that need to be connected to the STM32f051 are the following:
-| FTDI Adaptor    | STM32f051 Pin |
-| :-----------: | :-----------:|
-| GND | GND |
-| 5V | 5V |
-| TX | PA10|
-| RX | PA9|
 
 # stm32_hal_icm20948
 
@@ -143,3 +102,46 @@ int main(void)
     }
 }
 ```
+
+## Required Hardware
+To get started working on this project, the following hardware is required:
+
+| Hardware     | Quantity |
+| :----------- | :-----------:|
+| ICM-20649 Module | x 1|
+| STM32f051 Discovery Board   | x 2|
+| FTDI Adaptor   | x 1    |
+| Micro-USB   | x 1 |
+| Mini-USB   | x 1  |
+| Male-to-Female Jumpers   | x 10  |
+| Male-to-Male Jumpers   | x 10    |
+| Computer to Code   | x 1    |
+
+
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+## Required Software
+As well as the above mentioned hardware, the following software/tools are needed:
+
+| Hardware     | Quantity |
+| :----------- | :-----------:|
+|python|-|
+| STM32 Cube IDE (Or equivalent such as VS Code) | x 1|
+| Serial Port Monitor (Putty on Windows) | x 1|
+
+
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+## Connecting the Hardware
+
+
+The pins on the FTDI adaptor that need to be connected to the STM32f051 are the following:
+| FTDI Adaptor    | STM32f051 Pin |
+| :-----------: | :-----------:|
+| GND | GND |
+| 5V | 5V |
+| TX | PA10|
+| RX | PA9|
+
