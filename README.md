@@ -9,8 +9,6 @@ This data will then be transmitted using the Iridium communication network, whic
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- GETTING STARTED -->
@@ -19,6 +17,8 @@ This data will then be transmitted using the Iridium communication network, whic
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 ## Required Hardware
 To get started working on this project, the following hardware is required:
 
@@ -35,6 +35,8 @@ To get started working on this project, the following hardware is required:
 
 
 
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 ## Required Software
 As well as the above mentioned hardware, the following software/tools are needed:
 
@@ -46,14 +48,10 @@ As well as the above mentioned hardware, the following software/tools are needed
 
 
 
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 ## Connecting the Hardware
-The pins on the WaveShare SenseHAT that need to be connected to the STM32f051 are the following:
-| WaveShare HAT Pin     | STM32f051 Pin |
-| :-----------: | :-----------:|
-| GND | GND |
-| 3.3V | 3.3V |
-| SDA | PB7|
-| SCL | PB6|
+
 
 The pins on the FTDI adaptor that need to be connected to the STM32f051 are the following:
 | FTDI Adaptor    | STM32f051 Pin |
